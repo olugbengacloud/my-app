@@ -1,19 +1,20 @@
 pipeline {
     agent any 
     stages {
-        stage('---clean---') { 
+        stage('clone repo and clean') { 
             steps {
-                sh "mvn clean" 
+               sh "git clone https://github.com/olugbengacloud/my-app.git"
+               sh "mvn clean -f my-app"
             }
         }
-        stage('--test--') { 
+        stage('Test') { 
             steps {
-                sh "mvn-test" 
+                sh "mvn test -f my-app" 
             }
         }
-        stage('--package--') { 
+        stage('Deploy') { 
             steps {
-                sh "mvn package"
+                sh "mvn package -f my-app"
             }
         }
     }
